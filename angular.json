@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "passaroUrbano": {
@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "passaroUrbano"
+    }
+  },
+  "defaultProject": "passaroUrbano",
+  "cli": {
+    "analytics": "81d108ce-1f46-460b-808f-b050b990a54a"
+  }
 }
