@@ -2,7 +2,7 @@ import { Oferta } from '../shared/oferta.model'
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
@@ -37,6 +37,7 @@ export class OfertaService {
 	getPesquisa(desc: string): Observable<Oferta[]>{
 		return this.http.get(`http://localhost:3000/ofertas?descricao_oferta_like=${desc}`)
 		.pipe(
+			
 			map((resposta: Oferta[]) => resposta)
 		)
 	}

@@ -8,12 +8,12 @@
 					</a>
 				</div>
 				
-				<div class="col-lg-4">
-					<input #termoBusca (keyup)="pesquisa(termoBusca.value)" class="form-control" placeholder="Pesquise por ofertas..." type="text">
-					<ul class="list-group position-absolute">
-						<li class="list-group-item" *ngFor="let oferta of ofertas | async">
+				<div class="col-lg-4 p-0">
+					<input #termoBusca (keyup)="pesquisa(termoBusca.value)" class="form-control w-100 p-0" placeholder="Pesquise por ofertas..." type="text">
+					<ul class="list-group position-absolute w-100"><!-- | async -->
+						<li class="list-group-item w-100" *ngFor="let oferta of resultadoOfertas ">
 							<a [routerLink]="['/oferta', oferta.id]" (click)="limparpesquisa()">
-								{{oferta.titulo | descricaoReduzida:10 | uppercase}} 
+								{{oferta.titulo | descricaoReduzida:20 | uppercase}} 
 							</a>
 						</li>
 					</ul>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
 import { OfertaService } from '../service/ofertas.service'
 import { Oferta } from '../shared/oferta.model'
-import { debounceTime, distinctUntilChanged, switchMap, catchError } from 'rxjs/operators';
+import  Rxjs  from '../utils/rxjs-declarations'
 
 
 @Component({
@@ -15,7 +15,7 @@ export class TopoComponent implements OnInit {
   subjectPesquisa: Subject<string> = new Subject<string>()
   ofertas: Observable<Oferta[]> 
   
-  /* ofertas2: Oferta[] = [] */
+  resultadoOfertas: Oferta[] = []
 
   constructor(
     private ofertaservice: OfertaService
@@ -23,6 +23,27 @@ export class TopoComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.ofertas = this.subjectPesquisa.pipe(
+      Rxjs.debounceTime(1000),
+      Rxjs.distinctUntilChanged(),
+      Rxjs.switchMap((termo:string)=> {
+        console.log('requisicao para api')
+        if(termo.trim() === ''){
+          return of<Oferta[]>([])
+        }else{
+          return this.ofertaservice.getPesquisa(termo);
+        }
+      }),
+      Rxjs.catchError((error:any) => {
+        console.log(error)
+        return of<Oferta[]>([])
+      })
+    )
+
+    this.ofertas.subscribe((oferta:Oferta[])=> {
+      console.log(oferta)
+      this.resultadoOfertas = oferta
+    })
     
 
     /* this.ofertas = this.subjectPesquisa
@@ -49,13 +70,16 @@ export class TopoComponent implements OnInit {
   }
 
   pesquisa(termo:any){
-    
+    console.log('disparo do termo')
+    this.subjectPesquisa.next(termo)
    
     /* this.subjectPesquisa.next(termo) */
-    this.ofertas = this.ofertaservice.getPesquisa(termo)
+    /* this.ofertas = this.ofertaservice.getPesquisa(termo)
     this.ofertas.subscribe(response => {
       console.log(response)
-    })
+    },error=> {
+      console.log('error: ',error.status)
+    }) */
   }
 
   
