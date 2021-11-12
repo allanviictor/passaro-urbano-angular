@@ -1,6 +1,6 @@
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,13 @@ import { OfertaComponent } from './oferta/oferta.component';
 import { ComoUsarComponent } from './oferta/como-usar/como-usar.component';
 import { OndeFicaComponent } from './oferta/onde-fica/onde-fica.component';
 
+import { ButtonModule } from 'primeng/button';
+
+import {TreeTableModule} from 'primeng/treetable';
+
+import { DescricaoReduzida } from './utils/descricao-reduzida.pipe';
+import { OrdemCompraComponent } from './ordem-compra/ordem-compra.component'
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -24,14 +31,18 @@ import { OndeFicaComponent } from './oferta/onde-fica/onde-fica.component';
 		DiversaoComponent,
 		OfertaComponent,
 		ComoUsarComponent,
-		OndeFicaComponent
+		OndeFicaComponent,
+		DescricaoReduzida,
+		OrdemCompraComponent
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		HttpClientModule
+		HttpClientModule,
+		ButtonModule,
+		TreeTableModule,
 	],
-	providers: [],
+	providers: [ ],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

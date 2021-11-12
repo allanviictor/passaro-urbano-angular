@@ -19,10 +19,14 @@ export class ComoUsarComponent implements OnInit {
 
 	ngOnInit(): void {
 
-		this.ofertaService.getComoUsarPorId(this.route.parent.snapshot.params['id']).subscribe((response:string)=> {
-			this.comoUsar = response['0'].descricao
+		this.route.parent.params.subscribe((params: any)=> {
 
+			this.ofertaService.getComoUsarPorId(params.id).subscribe((response:string)=> {
+				this.comoUsar = response['0'].descricao
+	
+			})
 		})
+
 
 	}
 

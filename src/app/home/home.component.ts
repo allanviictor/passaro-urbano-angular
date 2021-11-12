@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { OfertaService } from '../service/ofertas.service'
 import { Oferta } from '../shared/oferta.model'
+import { HttpClient } from '@angular/common/http';
+
+import {TreeNode} from 'primeng/api';
 
 @Component({
 	selector: 'app-home',
@@ -13,8 +16,11 @@ export class HomeComponent implements OnInit {
 
 	listaOfertasHome: Oferta[] = []
 
+	no: TreeNode[] = []; 
+
 	constructor(
-		private ofertaService: OfertaService
+		private ofertaService: OfertaService,
+		private http: HttpClient
 	) { }
 
 	ngOnInit(): void {
@@ -27,7 +33,16 @@ export class HomeComponent implements OnInit {
 			console.log(this.listaOfertasHome[0].imagens['0'].url)
 		}, 3000);
 
+		this.getDadosTable()
 
+
+	}
+
+	getDadosTable(){
+		this.http.get(`http://localhost:3000/data`).subscribe((data: any) => {
+			this.no = data
+			return console.log('objeto data ', data)
+		})
 	}
 
 }

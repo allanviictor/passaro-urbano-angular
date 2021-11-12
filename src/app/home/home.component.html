@@ -12,14 +12,37 @@
 					<div class="card-block p-3">
 						<h4 class="card-title"> {{ oferta.titulo }} </h4>
 						<p class="card-text">{{ oferta.descricao_oferta }}</p>
-						<p class="preco">R$ {{ oferta.valor }}</p>
+						<p class="preco">{{ oferta.valor | currency:'BRL':true }}</p>
 						<a [routerLink]="['/oferta', oferta.id]" routerLinkActive="router-link-active" class="btn btn-outline-primary">Ver oferta</a>
-					</div>
+ 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<button pButton type="button" label="Click" ></button>
+	<p-button label="Click" ></p-button>
+
+
+	<p-treeTable [value]="no">
+		<ng-template pTemplate="header">
+			<tr>
+				<th>Name</th>
+				<th>Size</th>
+				<th>Type</th>
+			</tr>
+		</ng-template>
+		<ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+			<tr>
+				<td>
+					<p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+					{{rowData.name}}
+				</td>
+				<td>{{rowData.size}}</td>
+				<td>{{rowData.type}}</td>
+			</tr>
+		</ng-template>
+	</p-treeTable>
 
 
 </div>
