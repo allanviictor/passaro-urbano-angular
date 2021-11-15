@@ -19,6 +19,7 @@ export class OrdemCompraComponent implements OnInit {
 
   validaform: boolean = true;
 
+  // ATRIBUTOS DE VALIDAÇÃO 
   validaformEndereco: boolean = false;
   validaformNumero: boolean = false;
   validaformComplemento: boolean = false;
@@ -32,13 +33,14 @@ export class OrdemCompraComponent implements OnInit {
   atualizaEndereco(value: string){
     this.endereco = value
     this.enderecoEstadoPrimitivo = false;
-    if(this.endereco.length > 5){
+    if(this.endereco.length > 3){
       this.validaformEndereco = true;
     }else{
       this.validaformEndereco = false;
     }
     this.liberarbotao()
   }
+
 
   atualizaNumero(value: string){
     this.numero = value
@@ -54,7 +56,7 @@ export class OrdemCompraComponent implements OnInit {
   atualizaComplemento(value: string){
     this.complemento = value
     this.complementoEstadoPrimitivo = false;
-    if(this.complemento.length  > 5){
+    if(this.complemento.length  > 0){
       this.validaformComplemento = true;
     }else{
       this.validaformComplemento = false;

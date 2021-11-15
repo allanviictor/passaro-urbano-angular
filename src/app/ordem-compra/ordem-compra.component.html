@@ -2,97 +2,38 @@
   <div class="ordem-compra">
     <form novalidate>
     
-      <h5>Sua Compra</h5>
-      <hr />
-
-      <div class="form-row" style="background: #FAFAFA; padding: 20px; border-bottom: solid 1px #F0F0F0">
-        <div class="form-group col-sm-1">
-          <img src="/assets/ofertas/1/img1.jpg" class="img-fluid">
-        </div>
-        <div class="form-group col-sm-6">
-          Super Burger
-          <br />
-          Rodízio de Mini-hambúrger com opção de entrada.
-        </div>
-
-        <div>
-          <div class="row">
-            <div class="col">
-              <button type="button" class="btn btn-link">-</button>
-              1
-              <button type="button" class="btn btn-link">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group col-sm-3 d-flex justify-content-end">
-          29.90
-        </div>
-      </div>
-      
-      <div class="form-row" style="background: #FAFAFA; padding: 20px; border-bottom: solid 1px #F0F0F0">
-        <div class="form-group col-sm-1">
-          <img src="/assets/ofertas/4/img1.jpg" class="img-fluid">
-        </div>
-        <div class="form-group col-sm-6">
-          Estância das águas
-          <br />
-          Diversão garantida com piscinas, trilhas e muito mais.
-        </div>
-
-        <div>
-          <div class="row">
-            <div class="col">
-              <button type="button" class="btn btn-link">-</button>
-              1
-              <button type="button" class="btn btn-link">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group col-sm-3 d-flex justify-content-end">
-          31.90
-        </div>
-      </div>
-      
-      <div class="form-row">
-        <div class="form-group col d-flex justify-content-end">
-          <h4>Total do pedido: 61.80</h4>
-        </div>
-      </div>
-      <br />
-
-
       <h5>Dados de entrega</h5>
-      <hr />
 
       <div class="form-row">
 
         <div class="form-group col-md-6">
           <input 
             type="text" 
-            class="form-control {{ enderecoEstadoPrimitivo ? '' : (endereco.length > 5 ? 'is-valid' : 'is-invalid') }}" 
+            class="form-control {{ enderecoEstadoPrimitivo ? '' : (endereco.length > 3 ? 'is-valid' : 'is-invalid') }}" 
             placeholder="Endereço" 
-            [value]="endereco" 
             #inputEndereco
             (input)="atualizaEndereco(inputEndereco.value)"
             autocomplete="off" 
+            [value]="endereco"
             minlength="5" 
-            require
+            require 
           >
-          <div *ngIf="enderecoEstadoPrimitivo == false">
+
+          <!-- MENSAGEM AMIGAVEL -->
+          <!-- <div *ngIf="enderecoEstadoPrimitivo == false">
             <div *ngIf="endereco.length > 5; else validEndereco">
               <small class="form-text text-success">Ok</small>
             </div>
             <ng-template #validEndereco>
               <div class="form-text text-danger">Endereço inválido</div>
             </ng-template>
-          </div>
+          </div> -->
           
         </div>
 
         <div class="form-group col-md-2">
-          <input type="text" class="form-control {{ numeroEstadoPrimitivo ? '' : (numero.length != 0 ? 'is-valid' : 'is-invalid') }}" 
+          <input type="text" 
+            class="form-control {{ numeroEstadoPrimitivo ? '' : (numero.length != 0 ? 'is-valid' : 'is-invalid') }}" 
             [value]="numero" 
             #inputNumero
             (input)="atualizaNumero(inputNumero.value)"
@@ -103,32 +44,39 @@
             maxlength="2"
           >
 
-          <div *ngIf="numeroEstadoPrimitivo == false">
+          <!-- MENSAGEM AMIGAVEL -->
+          <!-- <div *ngIf="numeroEstadoPrimitivo == false">
             <div *ngIf="numero.length != 0;else numeroValid">
               <small class="form-text text-success">Ok</small>
             </div>
             <ng-template #numeroValid>
               <div class="form-text text-danger">numero inválido</div>
             </ng-template>
-          </div>
+          </div> -->
+
         </div>
 
         <div class="form-group col-md-4">
-          <input type="text" class="form-control {{ complementoEstadoPrimitivo ? '' : (complemento.length > 5 ? 'is-valid' : 'is-invalid') }}"
-           [value]="complemento" 
-           #inputComplemento
-           (input)="atualizaComplemento(inputComplemento.value)"
-           placeholder="Complemento" 
-           autocomplete="off"
+          
+          <input type="text" 
+            class="form-control {{ complementoEstadoPrimitivo ? '' : (complemento.length > 0 ? 'is-valid' : '') }}"
+            [value]="complemento" 
+            #inputComplemento
+            (input)="atualizaComplemento(inputComplemento.value)"
+            placeholder="Complemento" 
+            autocomplete="off"
           >
-          <div *ngIf="complementoEstadoPrimitivo == false">
+
+          <!-- MENSAGEM AMIGAVEL -->
+          <!-- <div *ngIf="complementoEstadoPrimitivo == false">
             <div *ngIf="complemento.length > 5;else complementoValid">
               <small class="form-text text-success">Ok</small>
             </div>
             <ng-template #complementoValid>
               <div class="form-text text-danger">complemento inválido</div>
             </ng-template>
-          </div>
+          </div> -->
+
         </div>
 
       </div>
@@ -138,25 +86,21 @@
       <hr />
 
       <div class="form-row">
-          
-        <!-- <div class="form-group col-md-3">
-          <select class="form-control is-invalid">
-            <option>Selecione uma opção</option>
-            <option>Dinheiro</option>
-            <option>Débito</option>
-          </select>
-
-          <div class="invalid-feedback">Selecione uma forma de pagamento</div>
-        </div> -->
+        
         <div class="col-3">
           <div class="form-group">
-            <label for="exampleFormControlSelect1">Example select</label>
-            <select #selectFormaPagamento (change)="atuaizaFormaPagamento(selectFormaPagamento.value)" class="form-control {{ formaPagamentoEstadoPrimitivo ? '' : (formaPagamento.length != 0 ? 'is-valid' : 'is-invalid') }}" id="exampleFormControlSelect1">
-              <option disabled selected>Selecione uma opção</option>
+            <label for="exampleFormControlSelect1">Selecione uma forma de pagamento</label>
+            <select #selectFormaPagamento (change)="atuaizaFormaPagamento(selectFormaPagamento.value)" 
+              class="form-control {{ formaPagamentoEstadoPrimitivo ? '' : (formaPagamento.length != 0 ? 'is-valid' : 'is-invalid') }}" 
+              id="exampleFormControlSelect1">
+              <option disabled >Selecione uma opção</option>
               <option value="dinheiro" selected="{{ formaPagamento == 'dinheiro' ? 'selected' : '' }}">Dinheiro</option>
               <option value="debito" selected="{{ formaPagamento == 'debito' ? 'selected' : '' }}">Débito</option>
             </select>
-            <div class="invalid-feedback">Selecione uma forma de pagamento</div>
+            
+
+            <!-- MENSAGEM AMIGAVEL -->
+            <!-- <div class="invalid-feedback">Selecione uma forma de pagamento</div>
             <div *ngIf="formaPagamentoEstadoPrimitivo == false">
               <div *ngIf="formaPagamento.length != 0;else validFormaPagamento">
                 <small class="form-text text-success">Ok</small>
@@ -164,13 +108,15 @@
               <ng-template #validFormaPagamento>
                 <div class="form-text text-danger">Forma de Pagamento invalida</div>
               </ng-template>
-            </div>
+            </div> -->
+
           </div>
         </div>
       </div>
 
       <hr />
-      <button type="submit" [disabled]="validaform" class="btn btn-primary btn-lg">Cofirmar compra</button>
+      <!-- [disabled]="validaform" -->
+      <button type="submit"  class="btn btn-primary btn-lg">Cofirmar compra</button>
     </form>
   </div>
 </div>
