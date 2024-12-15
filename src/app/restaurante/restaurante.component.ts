@@ -1,28 +1,25 @@
-import { Oferta } from './../shared/oferta.model';
-import { OfertaService } from './../service/ofertas.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { OfertaService } from "./../service/ofertas.service";
+import { Oferta } from "./../shared/oferta.model";
 
 @Component({
-	selector: 'app-restaurante',
-	templateUrl: './restaurante.component.html',
-	styleUrls: ['./restaurante.component.css']
+	selector: "app-restaurante",
+	templateUrl: "./restaurante.component.html",
+	styleUrls: ["./restaurante.component.css"],
 })
 export class RestauranteComponent implements OnInit {
+	public oferta!: Oferta;
 
-	oferta: Oferta = new Oferta()
+	listaOfertasRestaurante: Oferta[] = [];
 
-	listaOfertasRestaurante: Oferta[] = []
-
-	constructor(
-		private ofertaServices: OfertaService
-	) { }
+	constructor(private ofertaServices: OfertaService) {}
 
 	ngOnInit(): void {
-
-		this.ofertaServices.getOfertasPorCategoria('restaurante').subscribe((response: Oferta[]) => {
-			this.listaOfertasRestaurante = response;
-			/* console.log(response) */
-		})
+		this.ofertaServices
+			.getOfertasPorCategoria("restaurante")
+			.subscribe((response: Oferta[]) => {
+				this.listaOfertasRestaurante = response;
+				/* console.log(response) */
+			});
 	}
-
 }

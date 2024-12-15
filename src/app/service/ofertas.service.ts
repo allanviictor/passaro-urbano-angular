@@ -1,45 +1,50 @@
-import { Oferta } from '../shared/oferta.model'
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map, retry } from 'rxjs/operators';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { Oferta } from "../shared/oferta.model";
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: "root",
 })
-
 export class OfertaService {
+	constructor(private http: HttpClient) {}
 
-	constructor(
-		private http: HttpClient
-	){}
-
-	getOfertas(){
-		return this.http.get('http://localhost:3000/ofertas?destaque=true')
+	public getOfertas(): Observable<Oferta[]> {
+		return this.http.get<Oferta[]>(
+			"http://localhost:3000/ofertas?destaque=true"
+		);
 	}
 
-	getOfertasPorCategoria(categoria: string){
-		return this.http.get(`http://localhost:3000/ofertas?categoria=${categoria}`)
+	public getOfertasPorCategoria(categoria: string): Observable<Oferta[]> {
+		return this.http.get<Oferta[]>(
+			`http://localhost:3000/ofertas?categoria=${categoria}`
+		);
 	}
 
-	getOfertaPorId(id: number){
-		return this.http.get(`http://localhost:3000/ofertas?id=${id}`)
+	public getOfertaPorId(id: number): Observable<Oferta[]> {
+		return this.http.get<Oferta[]>(
+			`http://localhost:3000/ofertas?id=${id}`
+		);
 	}
 
-	getComoUsarPorId(id: number){
-		return this.http.get(`http://localhost:3000/como-usar?id=${id}`)
+	public getComoUsarPorId(id: number): Observable<string> {
+		return this.http.get<string>(
+			`http://localhost:3000/como-usar?id=${id}`
+		);
 	}
 
-	getOndeFicaPorId(id: number){
-		return this.http.get(`http://localhost:3000/onde-fica?id=${id}`)
+	public getOndeFicaPorId(id: number): Observable<string> {
+		return this.http.get<string>(
+			`http://localhost:3000/onde-fica?id=${id}`
+		);
 	}
 
-	getPesquisa(desc: string): Observable<Oferta[]>{
-		return this.http.get(`http://localhost:3000/ofertas?descricao_oferta_like=${desc}`)
-		.pipe(
-			
-			map((resposta: Oferta[]) => resposta)
-		)
+	public getPesquisa(desc: string): Observable<Oferta[]> {
+		return this.http
+			.get<Oferta[]>(
+				`http://localhost:3000/ofertas?descricao_oferta_like=${desc}`
+			)
+			.pipe(map((resposta: Oferta[]) => resposta));
 	}
-
 }

@@ -11,6 +11,8 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
+    "strict": true,
+    "skipLibCheck": true,
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -23,4 +25,5 @@
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   }
+ 
 }
